@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rainbow by woewow</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rainbow</h1>
+        <p>rainbow</p>
+        <p class="view"><a href="https://github.com/woewow/rainbow">View the Project on GitHub <small>woewow/rainbow</small></a></p>
+        <ul>
+          <li><a href="https://github.com/woewow/rainbow/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/woewow/rainbow/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/woewow/rainbow">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Rainbow v1.0.1</h1>
+
+<h2>Description</h2>
+
+<h1></h1>
+
+<p>Rainbow package consists of several programs used for RAD-seq related 
+clustering and de novo assembly.</p>
+
+<h2>Installation</h2>
+
+<h1></h1>
+
+<p>Type 'make' to compile Rainbow package. You can copy the executables/scripts
+to your specific location (e.g. a directory in your $PATH). Or you can set
+the PATH environment that leads to this directory.</p>
+
+<h2>Usage of Rainbow package</h2>
+
+<h1></h1>
+
+<p>EXAMPLE: a typical use of Rainbow step by step</p>
+
+<pre><code>rainbow cluster -1 1.fq  -2 2.fq &gt; rbcluster.out 2&gt; log
+rainbow div -i rbcluster.out &gt; rbdiv.out
+rbasm -i rbdiv.out -o rbasm.out
+rainbow merge -a rbasm.out -v rbdiv.out -p 0.002 &gt; merged.txt ## [-p] is the estimated heterogosity
+rerun_rbasm.pl merged.txt rbdiv.out rbasm.out # the output file 'final_asm.fa' contains the final contigs
+</code></pre>
+
+<hr><hr><p>rainbow 1.1 -- 
+Usage: rainbow  [options]
+Input  File Format: paired fasta/fastq file(s)
+Output File Format: <a>seqid:int</a>\t\t<a>read1:string</a>\t<a>read2:string</a>[\t]</p>
+
+<p>cluster
+   -1  Input fasta/fastq file, supports multiple '-1'
+   -2  Input fasta/fasta file, supports multiple '-2' [null]
+   -l     Read length, default: 0 variable
+   -m     Maximum mismatches [2]
+   -e     Exactly matching threshold [2000]
+  div
+   -i  Input file [stdin]
+   -k     K_allele, min variants to create a new group [2]
+   -K     K_allele, divide regardless of frequency when num of variants exceed this value [50]
+   -f   Frequency, min variant frequency to create a new group [0.2]
+  merge  <strong><em>this procedure should be run after rbasm</em></strong>
+   -a  Input rbasm output file [stdin]
+   -v  Input rainbow divided file [stdin]
+   -p   maximum heterozygosity to collapse, should be specifed according to the estimated
+               polymorphism of the species [0.01]
+   -l     Minimum overlap to collapse two contigs [100]
+   -n     Maximum number of contigs to execute pairwise alignment [50]</p>
+
+<hr><p>rbasm: a greedy assembler to locally assemble each cluster produced by rainbow
+Local assemble fragments around restriction sites
+Usage: rbasm [options]
+ -i  Input file [STDIN]
+ -o  Output file [STDOUT]
+ -l     Minium length of overlap [5]
+ -s   Minium similiarity of overlap [0.90]
+ -r     Minium reads to execute assembly [5]
+ -R     Maxium reads to execute assembly [200]</p>
+
+<hr><p> rbmergetag: a program merges divided results to evaluate clustering performance.
+                  Users should omit this program when de novo assembling RAD-seq reads.
+Usage: rbmergetag [options]
+Options:
+ -i     Input file name [stdin]
+ -o     Output file name [stdout]
+ -j  Job type, cns: consensus, merge: merging, [merge]
+ -m        Maximum mismatches to merge two groups [1]
+ -h             Show this document</p>
+
+<hr>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/woewow">woewow</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-31815890-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
